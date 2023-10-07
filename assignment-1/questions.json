@@ -1,0 +1,30 @@
+{
+    "questions": [
+    {
+        "id": 229, 
+        "title": "Majority Element II",
+        "description": "Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.",
+        "category": "companies",
+        "complexity": "Medium", 
+        "tags": ["array", "hash table"]
+      },
+
+      {
+        "id": 59,
+        "title": "Spiral Matrix II",
+        "description": "Given a positive integer n, generate an n x n matrix filled with elements from 1 to n^2 in spiral order.",
+        "category": "companies",
+        "complexity": "Medium", 
+        "tags": ["array"]
+      },
+
+      {
+        "id": 2707,
+        "title": "Extra Characters in a String",
+        "description": "You are given a 0-indexed string s and a dictionary of words dictionary. You have to break s into one or more non-overlapping substrings such that each substring is present in dictionary. There may be some extra characters in s which are not present in any of the substrings. Return the minimum number of extra characters left over if you break up s optimally.",
+        "category": "companies",
+        "complexity": "Medium", 
+        "tags": ["string", "dictionary"]
+      }
+  ]
+}
