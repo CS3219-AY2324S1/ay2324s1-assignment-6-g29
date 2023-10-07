@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import QuestionService from "../service/QuestionService";
 import { LeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,13 @@ import { PageHeader } from '@ant-design/pro-layout';
 
 const CreateNewQuestion = ({ questions, setQuestions }) => {
   const navigate = useNavigate();   
-  const questionsID = questions.map((book) => book.id);
+
+  useEffect(() => {
+    QuestionService.getAll().then((questions) => {
+      setQuestions(questions);
+    });
+  }, [setQuestions]);
+  
   const addQuestion = (values) => {
     const QuestionObject = {
       id: parseInt(values.id, 10),
@@ -24,6 +30,7 @@ const CreateNewQuestion = ({ questions, setQuestions }) => {
 
   const tagOptions = ["data structures", "recursion", "algorithms", "bit manipulation"]; // Define your tag options here
   const complexityOptions = ["Easy", "Medium", "Hard"]; // Define your complexity options here
+  const questionsID = questions.map((question) => question.id);
 
   return (
     <div>
@@ -86,7 +93,7 @@ const CreateNewQuestion = ({ questions, setQuestions }) => {
                     new Error("ID only consists of numbers")
                   );
                 }
-                if (questionsID.includes(value)) {
+                if (questionsID.includes(parseInt(value, 10))) {
                   return Promise.reject(new Error("ID already exists"));
                 }
                 return Promise.resolve();
