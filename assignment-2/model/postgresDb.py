@@ -109,11 +109,11 @@ class PostgresDb():
         
     # Support for login
     def is_login_successful(self, username, password):
-        self.cur.execute('SELECT password FROM users WHERE username = %s', (username, ))
+        self.cur.execute('SELECT password, role FROM users WHERE username = %s', (username, ))
         hashed_password = self.hash_password(password)
         item = self.cur.fetchone()
         if item and item[0] == hashed_password:
-            return True
+            return True, item[1]
         
-        return False
+        return False, None
         

@@ -25,8 +25,10 @@ class Server():
         username = data['username']
         password = data['password']
 
-        if self.user_db.is_login_successful(username, password):
-            return self.token_manager.generate_token(username)
+        success, role =  self.user_db.is_login_successful(username, password)
+        
+        if success:
+            return self.token_manager.generate_token(username, role)
         
         return jsonify({'message': 'Invalid username or password'}, 401)
 
