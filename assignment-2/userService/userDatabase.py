@@ -18,14 +18,14 @@ print("Connection success")
 # Define routes for CRUD operations
 @app.route('/users', methods=['GET'])
 def get_all_users():
-    cur.execute('SELECT * FROM users')
+    cur.execute('SELECT username, email, displayName, role FROM users')
     items = cur.fetchall()
     return jsonify(items)
 
 @app.route('/user/<string:userName>', methods=['GET'])
 def get_user(userName):
     print("Username is", userName)
-    cur.execute('SELECT * FROM users WHERE username = %s', (userName,))
+    cur.execute('SELECT username, email, displayName, role FROM users WHERE username = %s', (userName,))
     item = cur.fetchone()
     if item:
         return jsonify(item)
