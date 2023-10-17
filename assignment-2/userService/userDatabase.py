@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request, jsonify
 import psycopg2
+import hashlib
 
 app = Flask(__name__)
 
@@ -36,8 +37,9 @@ def add_user():
     try:
         data = request.json
         print(data)
-        cur.execute('INSERT INTO users (username, email, password, displayName) VALUES (%s, %s, %s, %s)', 
-                    (data['username'], data['email'], data['password'], data['name']))
+        hashed_password = hashlib.shake_256(data['password'].encode()).hexdigest(50)
+        cur.execute('INSERT INTO users VALUES (%s, %s, %s, %s, %s)', 
+                    (data['username'], data['email'], hashed_password, data['name'], data['role']))
         conn.commit()
 
         return jsonify({"message": "User registered successfully"}), 201
@@ -52,6 +54,7 @@ def update_user(userName):
         name = data.get('name', None)
         email = data.get('email', None)
         password = data.get('password', None)
+        role = data.get('role', None)
 
         if not name and not email and not password:
             return jsonify({"error": "No data provided for update"}), 400
@@ -68,7 +71,12 @@ def update_user(userName):
             update_params.append(email)
         if password:
             update_query += " password = %s,"
-            update_params.append(password)
+            hashed_password = hashlib.shake_256(password.encode()).hexdigest(50)
+            update_params.append(hashed_password)
+        if role:
+            update_query += " role = %s,"
+            update_params.append(role)
+            
 
         update_query = update_query.rstrip(',')  # Remove the trailing comma
         update_query += " WHERE username = %s"
