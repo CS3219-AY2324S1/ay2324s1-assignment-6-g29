@@ -1,12 +1,13 @@
 import { Input, Table, Space, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
+import Navbar from '../components/Navbar'
 import EditQuestionButton from '../buttons/EditQuestionButton'
 import CreateQuestionButton from '../buttons/CreateQuestionButton'
 import DeleteQuestionButton from '../buttons/DeleteQuestionButton'
 import ViewMoreButton from '../buttons/ViewMoreButton'
 import { SearchOutlined } from '@ant-design/icons'
 import QuestionService from '../service/QuestionService'
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid'
 
 const QuestionTable = ({ questions, setQuestions }) => {
   const [filteredQuestions, setFilteredQuestions] = useState([]);
@@ -167,7 +168,8 @@ const QuestionTable = ({ questions, setQuestions }) => {
   })
 
   return (
-    <div style={{ justifyContent: 'start', alignItems: "start" }}>
+    <div style={{ justifyContent: 'start', alignItems: 'start' }}>
+      <Navbar />
       <div style={{ display: 'flex' }}>
         <h2 style={{ paddingLeft: '1.5%', paddingTop: '1%' }}>
           Question Table

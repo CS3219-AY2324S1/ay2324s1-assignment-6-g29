@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
-import QuestionService from "../service/QuestionService";
-import { LeftOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-import { Form, Button, Input } from "antd";
+import React, { useEffect } from 'react'
+import QuestionService from '../service/QuestionService'
+import { LeftOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
+import { Form, Button, Input } from 'antd'
 // import { PageHeader } from "antd";
+<<<<<<< HEAD
 import { Checkbox, Radio, FloatButton } from "antd";
 import { PageHeader } from '@ant-design/pro-layout';
 
@@ -27,16 +28,41 @@ const CreateNewQuestion = ({ questions, setQuestions }) => {
     };
     QuestionService.create(QuestionObject).then((newQuestion) => { });
   };
+=======
+import { Checkbox, Radio, FloatButton } from 'antd'
+import { PageHeader } from '@ant-design/pro-layout'
 
-  const tagOptions = ["data structures", "recursion", "algorithms", "bit manipulation"]; // Define your tag options here
-  const complexityOptions = ["Easy", "Medium", "Hard"]; // Define your complexity options here
-  const questionsID = questions.map((question) => question.id);
+const CreateNewQuestion = ({ questions, setQuestions }) => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    QuestionService.getAll().then((questions) => {
+      setQuestions(questions)
+    })
+  }, [setQuestions])
+
+  const addQuestion = (values) => {
+    const QuestionObject = {
+      id: parseInt(values.id, 10),
+      title: values.title,
+      description: values.description,
+      category: values.category,
+      complexity: values.complexity,
+      tags: values.tags
+    }
+    QuestionService.create(QuestionObject).then((newQuestion) => {})
+  }
+>>>>>>> 03df21b (Integrate CRUD features for user database)
+
+  const tagOptions = ['data structures', 'recursion', 'algorithms', 'bit manipulation'] // Define your tag options here
+  const complexityOptions = ['Easy', 'Medium', 'Hard'] // Define your complexity options here
+  const questionsID = questions.map((question) => question.id)
 
   return (
     <div>
       <PageHeader
-        onBack={() => navigate("/questions")}
-        title="Creating New Question"
+        onBack={() => navigate('/questions')}
+        title='Creating New Question'
       />
 
       {/* <FloatButton
@@ -44,98 +70,98 @@ const CreateNewQuestion = ({ questions, setQuestions }) => {
         onClick={() => navigate("/questions")}
       /> */}
       <Form
-        style={{ padding: "2%" }}
+        style={{ padding: '2%' }}
         onFinish={(values) => {
-          addQuestion(values);
-          navigate("/questions");
+          addQuestion(values)
+          navigate('/questions')
         }}
-        autoComplete="off"
+        autoComplete='off'
         labelCol={{ span: 3 }}
       >
         <Form.Item
-          name="title"
-          label="Title"
+          name='title'
+          label='Title'
           rules={[
             {
-              required: true,
+              required: true
             },
-            { whitespace: true },
+            { whitespace: true }
           ]}
           hasFeedback
         >
-          <Input placeholder="Input Title" />
+          <Input placeholder='Input Title' />
         </Form.Item>
         <Form.Item
-          name="description"
-          label="Description"
+          name='description'
+          label='Description'
           rules={[
             {
-              required: true,
+              required: true
             },
-            { whitespace: true },
+            { whitespace: true }
           ]}
           hasFeedback
         >
-          <Input placeholder="Input Description" />
+          <Input placeholder='Input Description' />
         </Form.Item>
         <Form.Item
-          name="id"
-          label="ID"
+          name='id'
+          label='ID'
           rules={[
             {
-              required: true,
+              required: true
             },
             { whitespace: true },
             ({ getFieldValue }) => ({
-              validator(_, value) {
+              validator (_, value) {
                 if (value.match(/^[0-9._-]+$/) === null) {
                   return Promise.reject(
-                    new Error("ID only consists of numbers")
-                  );
+                    new Error('ID only consists of numbers')
+                  )
                 }
                 if (questionsID.includes(parseInt(value, 10))) {
-                  return Promise.reject(new Error("ID already exists"));
+                  return Promise.reject(new Error('ID already exists'))
                 }
-                return Promise.resolve();
-              },
-            }),
+                return Promise.resolve()
+              }
+            })
           ]}
           hasFeedback
         >
-          <Input placeholder="Input ID" />
+          <Input placeholder='Input ID' />
         </Form.Item>
         <Form.Item
-          name="tags"
-          label="Tags"
+          name='tags'
+          label='Tags'
           rules={[
             {
               required: true,
-              message: "Please select at least one tag",
-            },
+              message: 'Please select at least one tag'
+            }
           ]}
         >
           <Checkbox.Group options={tagOptions} />
         </Form.Item>
         <Form.Item
-          name="complexity"
-          label="Complexity"
+          name='complexity'
+          label='Complexity'
           rules={[
             {
               required: true,
-              message: "Please select the complexity",
-            },
+              message: 'Please select the complexity'
+            }
           ]}
         >
           <Radio.Group options={complexityOptions} />
         </Form.Item>
         <Form.Item>
-          <Button block type="primary" htmlType="submit">
+          <Button block type='primary' htmlType='submit'>
             Add New
           </Button>
         </Form.Item>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default CreateNewQuestion;
+export default CreateNewQuestion

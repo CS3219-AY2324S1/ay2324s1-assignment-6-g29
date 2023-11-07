@@ -36,7 +36,7 @@ const QuestionService = {
   getQuestion,
   remove,
   create,
-  update,
-};
+  update
+}
 
-export default QuestionService;
+export default QuestionService
