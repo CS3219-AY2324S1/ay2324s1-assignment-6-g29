@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import {
-    useParams, useNavigate
+  useParams, useNavigate
 } from 'react-router-dom'
 import QuestionService from '../service/QuestionService'
 import { Form, Button, Input, Radio, Checkbox } from 'antd';
@@ -22,7 +22,7 @@ const EditQuestion = () => {
     "recursion",
     "algorithms",
     "bit manipulation",
-  ]; 
+  ];
 
   useEffect(() => {
     QuestionService.getQuestion(id).then((question) => {
@@ -36,14 +36,15 @@ const EditQuestion = () => {
 
   const updateQuestion = (values) => {
     const questionObject = {
-      id: parseInt(values.id, 10),
-      title: values.title,
-      description: values.description,
-      complexity: values.complexity,
-      tags: values.tags,
+      "id": parseInt(values.id, 10),
+      "displayName": values.title,
+      "description": values.description,
+      "difficulty": values.complexity,
+      "topic": values.tags,
+      "imageArray": []
     };
     QuestionService.update(newId, questionObject).then(
-      (returnedQuestion) => {}
+      (returnedQuestion) => { }
     );
   };
 

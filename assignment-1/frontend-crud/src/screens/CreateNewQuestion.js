@@ -5,27 +5,27 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button, Input } from "antd";
 // import { PageHeader } from "antd";
 import { Checkbox, Radio, FloatButton } from "antd";
-import { PageHeader } from '@ant-design/pro-layout';  
+import { PageHeader } from '@ant-design/pro-layout';
 
 const CreateNewQuestion = ({ questions, setQuestions }) => {
-  const navigate = useNavigate();   
+  const navigate = useNavigate();
 
   useEffect(() => {
     QuestionService.getAll().then((questions) => {
       setQuestions(questions);
     });
   }, [setQuestions]);
-  
+
   const addQuestion = (values) => {
     const QuestionObject = {
-      id: parseInt(values.id, 10),
-      title: values.title,
-      description: values.description,
-      category: values.category,
-      complexity: values.complexity,
-      tags: values.tags,
+      "id": parseInt(values.id, 10),
+      "displayName": values.title,
+      "description": values.description,
+      "difficulty": values.complexity,
+      "topic": values.tags,
+      "imagesArray": []
     };
-    QuestionService.create(QuestionObject).then((newQuestion) => {});
+    QuestionService.create(QuestionObject).then((newQuestion) => { });
   };
 
   const tagOptions = ["data structures", "recursion", "algorithms", "bit manipulation"]; // Define your tag options here
@@ -38,7 +38,7 @@ const CreateNewQuestion = ({ questions, setQuestions }) => {
         onBack={() => navigate("/questions")}
         title="Creating New Question"
       />
-      
+
       {/* <FloatButton
         icon={<LeftOutlined />}
         onClick={() => navigate("/questions")}

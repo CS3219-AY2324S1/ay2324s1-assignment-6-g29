@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import QuestionTable from './screens/QuestionTable';
@@ -9,6 +10,21 @@ import EditQuestion from './screens/EditQuestion';
 
 function App() {
   const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    async function fetchQuestionData() {
+      try {
+        console.log('starting useEffect')
+        const response = await axios.get(`localhost:3002/question/getAll`)
+        console.log("getting response")
+        console.log(response)
+      } catch (error) {
+        console.error('Error fetching question data:', error)
+      }
+    }
+
+    fetchQuestionData()
+  }, [])
 
   return (
     <Router>
@@ -36,15 +52,15 @@ function App() {
             <Question questions={questions} setQuestions={setQuestions} />
           }
         />
-        <Route 
-          exact 
+        <Route
+          exact
           path="/questions/edit/:id"
           element={
-              <EditQuestion questions={questions} setQuestions={setQuestions} />
+            <EditQuestion questions={questions} setQuestions={setQuestions} />
           }
         />
       </Routes>
-      
+
     </Router>
   );
 }
