@@ -20,7 +20,8 @@ router.post('/post', async (req, res) => {
     description: req.body.description,
     topic: req.body.topic,
     imagesArray: req.body.imagesArray,
-    difficulty: req.body.difficulty
+    difficulty: req.body.difficulty,
+    id: req.body.id
   })
 
   try {
@@ -33,6 +34,7 @@ router.post('/post', async (req, res) => {
 
 // Get all Method
 router.get('/getAll', async (req, res) => {
+  console.log('running getAll in question service')
   try {
     const data = await Model.find()
     res.json(data)
@@ -55,6 +57,16 @@ router.get('/getDifficulty/:difficulty', async (req, res) => {
 router.get('/getOneByName/:name', async (req, res) => {
   try {
     const data = await Model.findOne({ name: req.params.name })
+    res.json(data)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+})
+
+// Get by Id Method
+router.get('/getOneById/:id', async (req, res) => {
+  try {
+    const data = await Model.findOne({ id: req.params.id })
     res.json(data)
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -127,12 +139,42 @@ router.patch('/update/:name', async (req, res) => {
   }
 })
 
+// Update by Id Method
+router.patch('/updateById/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const updatedData = req.body
+    const options = { new: true } // whether to return the updated data
+
+    const result = await Model.findOneAndUpdate(
+      { id },
+      updatedData,
+      options
+    )
+
+    res.send(result)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
+
 // Delete by Name Method
 router.delete('/delete/:name', async (req, res) => {
   try {
     const name = req.params.name
     const data = await Model.findOneAndDelete({ name })
     res.send(`Document with ${data.name} has been deleted.`)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
+
+// Delete by Id Method
+router.delete('/deleteById/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const data = await Model.findOneAndDelete({ id })
+    res.send(`Document with ${data.id} has been deleted.`)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
