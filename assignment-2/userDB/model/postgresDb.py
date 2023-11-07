@@ -27,7 +27,7 @@ class PostgresDb():
         if item:
             return jsonify(item)
         else:
-            return "Item not found", 404
+            return "Username not found", 404
         
     def add_user(self):
         try:
@@ -43,6 +43,24 @@ class PostgresDb():
             self.conn.rollback()  # Rollback the transaction if an error occurs
             return jsonify({"error": str(e)}), 500
 
+    def login(self):
+        print("Login")
+
+        data = request.json
+        userName = data['username']
+        self.cur.execute('SELECT password FROM users WHERE username = %s', (userName,))
+        item = self.cur.fetchone()
+        if not item:
+            return "Username not found", 404
+        
+        password_attempt = hashlib.shake_256(data['password'].encode()).hexdigest(50)
+        password = item[0]
+
+        if password_attempt == password:
+            return "Success", 200
+        
+        return "Incorrect password", 404
+        
     def update_user(self, userName):
         try:
             data = request.get_json()
