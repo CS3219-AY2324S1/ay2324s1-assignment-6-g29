@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import { Box } from '@mui/material'
 import { useSelector } from 'react-redux'
@@ -16,6 +16,7 @@ import LoginPage from './screens/LoginPage'
 import SignupPage from './screens/SignupPage'
 import EditProfileScreen from './screens/EditProfile'
 import ProfileScreen from './screens/Profile'
+import axios from 'axios'
 
 function App () {
   const [questions, setQuestions] = useState([])
