@@ -4,7 +4,6 @@ import { LeftOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { Form, Button, Input } from 'antd'
 // import { PageHeader } from "antd";
-<<<<<<< HEAD
 import { Checkbox, Radio, FloatButton } from "antd";
 import { PageHeader } from '@ant-design/pro-layout';
 
@@ -28,31 +27,6 @@ const CreateNewQuestion = ({ questions, setQuestions }) => {
     };
     QuestionService.create(QuestionObject).then((newQuestion) => { });
   };
-=======
-import { Checkbox, Radio, FloatButton } from 'antd'
-import { PageHeader } from '@ant-design/pro-layout'
-
-const CreateNewQuestion = ({ questions, setQuestions }) => {
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    QuestionService.getAll().then((questions) => {
-      setQuestions(questions)
-    })
-  }, [setQuestions])
-
-  const addQuestion = (values) => {
-    const QuestionObject = {
-      id: parseInt(values.id, 10),
-      title: values.title,
-      description: values.description,
-      category: values.category,
-      complexity: values.complexity,
-      tags: values.tags
-    }
-    QuestionService.create(QuestionObject).then((newQuestion) => {})
-  }
->>>>>>> 03df21b (Integrate CRUD features for user database)
 
   const tagOptions = ['data structures', 'recursion', 'algorithms', 'bit manipulation'] // Define your tag options here
   const complexityOptions = ['Easy', 'Medium', 'Hard'] // Define your complexity options here
