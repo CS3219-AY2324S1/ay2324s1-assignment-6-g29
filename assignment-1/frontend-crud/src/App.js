@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import QuestionTable from './screens/QuestionTable';
@@ -9,6 +10,13 @@ import EditQuestion from './screens/EditQuestion';
 
 function App() {
   const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    // here we get the data by requesting data from this link
+    // to our nodejs server
+    Axios.get('http://localhost:3002/questions')
+      .then((res) => setList(res.data));
+  }, []);
 
   return (
     <Router>
@@ -36,15 +44,15 @@ function App() {
             <Question questions={questions} setQuestions={setQuestions} />
           }
         />
-        <Route 
-          exact 
+        <Route
+          exact
           path="/questions/edit/:id"
           element={
-              <EditQuestion questions={questions} setQuestions={setQuestions} />
+            <EditQuestion questions={questions} setQuestions={setQuestions} />
           }
         />
       </Routes>
-      
+
     </Router>
   );
 }

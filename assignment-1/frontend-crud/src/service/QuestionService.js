@@ -1,5 +1,11 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/questions";
+const baseUrl = "http://localhost:3002/questions";
+
+const app = express()
+app.use(express.json())
+
+const cors = require('cors')
+app.use(cors())
 
 // getting all the books from json file
 const getAll = () => {
