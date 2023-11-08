@@ -88,6 +88,9 @@ function App () {
                 <>
                   <Route path='/' Component={LoginPage} />
                   <Route path='/signup' Component={SignupPage} />
+                  <Route path='/*' element={
+                  <div><h1>Unauthenticated </h1><h1><a href="http://localhost:3000">login here</a></h1></div>} />
+
                 </>
                 )}
           </Routes>

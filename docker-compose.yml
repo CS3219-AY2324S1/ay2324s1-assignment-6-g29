@@ -2,6 +2,7 @@ version: "3.8"
 services:
   user :
     build: 
+      context: ./assignment-2/userDB
       dockerfile: userService.Dockerfile
     networks:
       - some-net
@@ -9,6 +10,7 @@ services:
       - '5000:5000' 
   db:
     build: 
+      context: ./assignment-2/userDB
       dockerfile: userDb.Dockerfile
     networks:
       - some-net
