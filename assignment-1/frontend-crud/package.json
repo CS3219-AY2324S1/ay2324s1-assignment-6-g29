@@ -53,5 +53,5 @@
     "json-server": "^0.17.0",
     "standard": "^17.1.0"
   },
-  "homepage": "http://localhost:3000/questions"
+  "homepage": "http://localhost:3000"
 }
