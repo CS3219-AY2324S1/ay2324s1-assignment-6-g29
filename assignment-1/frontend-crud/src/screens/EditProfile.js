@@ -30,7 +30,7 @@ function EditProfileScreen () {
         .put(`http://localhost:5000/user/${userid}`, {
           name: displayName,
           email,
-          password,
+          password
         })
         .catch((error) => {
           dispatch(setErrorMessage(error.message))
@@ -41,7 +41,6 @@ function EditProfileScreen () {
       dispatch(setErrorMessage(error.message))
       dispatch(setShowError(true))
     }
-
   }
 
   const requireAllNonNull = () => {
@@ -151,11 +150,11 @@ function EditProfileScreen () {
               <b>Update</b>
             </Button>
           </form>
-          <Button variant='contained' onClick={() => navigate('/profile')} style={{marginTop: '10px', background: "red" }}fullWidth>
-              <b>Back</b>
-            </Button>
-          </Box>
-          </Box>
+          <Button variant='contained' onClick={() => navigate('/profile')} style={{ marginTop: '10px', background: 'red' }} fullWidth>
+            <b>Back</b>
+          </Button>
+        </Box>
+      </Box>
     </div>
   )
 }
