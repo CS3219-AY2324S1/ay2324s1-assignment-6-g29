@@ -62,7 +62,6 @@ class PostgresDb():
         
         password_attempt = hashlib.shake_256(data['password'].encode()).hexdigest(50)
         password, role = item
-        print(role)
 
         if password_attempt == password:
             return self.token_manager.generate_token(userName, role), 200

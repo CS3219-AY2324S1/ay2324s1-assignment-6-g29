@@ -15,7 +15,7 @@ class TokenManager():
         }
         token = jwt.encode(payload, self.secret_key, algorithm='HS256')
 
-        return jsonify({'token': token})
+        return jsonify({'token': token, 'role': role})
 
     def check_token(self):
         auth_header = request.headers.get('Authorization')

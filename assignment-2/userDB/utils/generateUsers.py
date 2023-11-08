@@ -28,3 +28,11 @@ for i in range(1, 51):
     hashed_password = "'" + hashlib.shake_256(password.encode()).hexdigest(50) + "'"
 
     print("INSERT INTO users VALUES (" + username + ", " + email + ", " + hashed_password + ", " + displayName + ", " + role + ");")
+
+admin_role = "'" + "Admin" + "'"
+admin_user = "'" + "admin" + "'"
+admin_display = "'" + "Admin" + "'"
+admin_email = "'" + "admin@gmail.com" + "'"
+admin_pw = "admin123"
+admin_hashed_password = "'" + hashlib.shake_256(admin_pw.encode()).hexdigest(50) + "'"
+print("INSERT INTO users VALUES (" + admin_user + ", " + admin_email + ", " + admin_hashed_password + ", " + admin_display + ", " + admin_role + ");")
