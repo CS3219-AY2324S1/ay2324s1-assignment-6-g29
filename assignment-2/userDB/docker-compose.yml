@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  user :
+    build: 
+      dockerfile: userService.Dockerfile
+    networks:
+      - some-net
+    ports:
+      - '5000:5000' 
+  db:
+    build: 
+      dockerfile: userDb.Dockerfile
+    networks:
+      - some-net
+    ports:
+      - '5432:5432' 
+
+
+networks:
+  some-net:
+    name: cs3219_network

@@ -8,8 +8,10 @@ class PostgresDb():
         self.conn = psycopg2.connect(
             dbname="postgres",
             user="postgres",
-            host="localhost"
-        )
+            host="db",
+            port="5432",
+            password="secret"
+        ) 
         self.cur = self.conn.cursor()
 
         print("Connection success")

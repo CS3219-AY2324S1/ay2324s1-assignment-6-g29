@@ -1,11 +1,14 @@
 from model.postgresDb import PostgresDb
 from flask import Flask
 from flask_cors import CORS
+import time
 
 class Server():
     def __init__(self):
         self.app = Flask(__name__)
         CORS(self.app)
+
+        time.sleep(2)
 
         self.userDb = PostgresDb()
 
@@ -16,7 +19,8 @@ class Server():
         self.app.add_url_rule('/user/<string:userName>', 'update_user', self.userDb.update_user, methods=['PUT'])
         self.app.add_url_rule('/user/<string:userName>', 'delete_user', self.userDb.delete_user, methods=['DELETE'])
 
+        print("App ready")
     
 if __name__ == "__main__":
     server = Server()
-    server.app.run(debug=True)
+    server.app.run(host='0.0.0.0', port=5000)
