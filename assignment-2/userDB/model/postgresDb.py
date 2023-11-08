@@ -3,7 +3,7 @@ import psycopg2
 import hashlib
 
 class PostgresDb():
-    def __init__(self):
+    def __init__(self, token_manager):
         # Database configuration
         self.conn = psycopg2.connect(
             dbname="postgres",
@@ -13,10 +13,15 @@ class PostgresDb():
             password="secret"
         ) 
         self.cur = self.conn.cursor()
+        self.token_manager = token_manager
 
         print("Connection success")
 
-    # Define routes for CRUD operations
+    # Common methods (maybe abstract into another class)
+    def hash_password(self, password):
+        return hashlib.shake_256(password.encode()).hexdigest(50)
+
+    # CRUD operations
     def get_all_users(self):
         self.cur.execute('SELECT username, email, displayName, role FROM users')
         items = self.cur.fetchall()
@@ -35,7 +40,7 @@ class PostgresDb():
         try:
             data = request.json
             print(data)
-            hashed_password = hashlib.shake_256(data['password'].encode()).hexdigest(50)
+            hashed_password = self.hash_password(data['password'])
             self.cur.execute('INSERT INTO users VALUES (%s, %s, %s, %s, %s)', 
                         (data['username'], data['email'], hashed_password, data['name'], data['role']))
             self.conn.commit()
@@ -50,16 +55,16 @@ class PostgresDb():
 
         data = request.json
         userName = data['username']
-        self.cur.execute('SELECT password FROM users WHERE username = %s', (userName,))
+        self.cur.execute('SELECT password, role FROM users WHERE username = %s', (userName,))
         item = self.cur.fetchone()
         if not item:
             return "Username not found", 404
         
         password_attempt = hashlib.shake_256(data['password'].encode()).hexdigest(50)
-        password = item[0]
+        password, role = item
 
         if password_attempt == password:
-            return "Success", 200
+            return self.token_manager.generate_token(userName, role), 200
         
         return "Incorrect password", 404
         
@@ -86,7 +91,7 @@ class PostgresDb():
                 update_params.append(email)
             if password:
                 update_query += " password = %s,"
-                hashed_password = hashlib.shake_256(password.encode()).hexdigest(50)
+                hashed_password = self.hash_password(password)
                 update_params.append(hashed_password)
             if role:
                 update_query += " role = %s,"
@@ -122,4 +127,14 @@ class PostgresDb():
         except Exception as e:
             self.conn.rollback()  # Rollback the transaction if an error ocself.curs
             return jsonify({"error": str(e)}), 500
+        
+    # Support for login
+    def is_login_successful(self, username, password):
+        self.cur.execute('SELECT password, role FROM users WHERE username = %s', (username, ))
+        hashed_password = self.hash_password(password)
+        item = self.cur.fetchone()
+        if item and item[0] == hashed_password:
+            return True, item[1]
+        
+        return False, None
         

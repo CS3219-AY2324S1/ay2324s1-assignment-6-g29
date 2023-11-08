@@ -15,7 +15,8 @@ import { setShowError, setErrorMessage } from '../redux/ErrorSlice.js'
 import {
   setUserid,
   setLoginStatus,
-  setIdToken
+  setIdToken,
+  setRole
 } from '../redux/UserSlice.js'
 import { useNavigate } from 'react-router-dom'
 import LoginPageBanner from '../components/FrontPageBanner.js'
@@ -39,7 +40,9 @@ function LoginPage () {
         password
       })
       dispatch(setUserid(username))
-      dispatch(setIdToken(tokenCredential))
+      dispatch(setIdToken(tokenCredential.data.token))
+      dispatch(setRole(tokenCredential.data.role))
+      console.log(tokenCredential)
       console.log('Login successful')
       dispatch(setLoginStatus(true))
       navigate('/questions')

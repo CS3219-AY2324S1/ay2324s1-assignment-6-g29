@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { selectUserid, setChangeDeactivateAccountAlert, setIdToken, setLoginStatus, setUserid } from '../redux/UserSlice.js'
 import '../styles/ProfileScreen.css'
 import DeactivateAccountDialog from '../components/DeactivateAccountAlert'
-import UpdateAccountButton from "../buttons/UpdateAccount"
+import UpdateAccountButton from '../buttons/UpdateAccount'
 import DeleteAccountButton from '../buttons/DeleteAccount'
 import { setShowError, setErrorMessage } from '../redux/ErrorSlice.js'
 import axios from 'axios'
@@ -90,9 +90,9 @@ function ProfileScreen () {
                 <li>Account Type: {accountType}</li>
               </ul>
             </div>
-            
-            <UpdateAccountButton/>
-            <DeleteAccountButton handleDelete={handleDeactivateAccount}/>
+
+            <UpdateAccountButton />
+            <DeleteAccountButton handleDelete={handleDeactivateAccount} />
           </div>
           )}
       <DeactivateAccountDialog

@@ -25,11 +25,11 @@ function App () {
   const showSuccessAlert = useSelector(selectShowSuccess)
 
   useEffect(() => {
-    async function fetchQuestionData() {
+    async function fetchQuestionData () {
       try {
         console.log('starting useEffect')
-        const response = await axios.get(`localhost:3002/question/getAll`)
-        console.log("getting response")
+        const response = await axios.get('http://localhost:3002/question/getAll')
+        console.log('getting response')
         console.log(response)
       } catch (error) {
         console.error('Error fetching question data:', error)
@@ -88,6 +88,12 @@ function App () {
                 <>
                   <Route path='/' Component={LoginPage} />
                   <Route path='/signup' Component={SignupPage} />
+                  <Route
+                    path='/*' element={
+                      <div><h1>Unauthenticated </h1><h1><a href='http://localhost:3000'>login here</a></h1></div>
+}
+                  />
+
                 </>
                 )}
           </Routes>

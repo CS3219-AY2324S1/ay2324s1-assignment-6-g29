@@ -48,3 +48,4 @@ INSERT INTO users VALUES ('Kassie47', 'Kassie47@gmail.com', '8da778e13ec683a1ef4
 INSERT INTO users VALUES ('Wain48', 'Wain48@gmail.com', '552d81ae9e7b2d345a3a59afd9c6b95a70c10ca5f1fbf82a965a20c14ea6047df16c3e1e24ab8e6337dd19a5675c7bd444b5', 'Wain', 'User');
 INSERT INTO users VALUES ('Chicky49', 'Chicky49@gmail.com', '1e577c07fa4d603cf4e196fdc24d1bae86ea989e6e524e3e4669ea90a57e899ca59f910b3a1f0a7c3c72c07f8d6a2986db28', 'Chicky', 'User');
 INSERT INTO users VALUES ('Natty50', 'Natty50@gmail.com', 'ad097fb1b701c0258e72e564fa9d1534b5ea8defade97643ea40a5bf42cdac50b8cd7d0f9ed6099f5c1a0b3c7df56edaaa68', 'Natty', 'User');
+INSERT INTO users VALUES ('admin', 'admin@gmail.com', '02e2f57c78c980f5d0bf0c0e135a7b8782068a53773221908a38683158382b973052a4631a193b2484ec9395399724f8b81c', 'Admin', 'Admin');
