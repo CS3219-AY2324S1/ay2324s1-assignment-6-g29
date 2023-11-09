@@ -1,22 +1,41 @@
 version: "3.8"
 services:
-  user :
-    build: 
+  user:
+    build:
       context: ./assignment-2/userDB
       dockerfile: userService.Dockerfile
     networks:
       - some-net
     ports:
-      - '5000:5000' 
+      - "5000:5000"
   db:
-    build: 
+    build:
       context: ./assignment-2/userDB
       dockerfile: userDb.Dockerfile
     networks:
       - some-net
     ports:
-      - '5432:5432' 
-
+      - "5432:5432"
+  question:
+    build:
+      context: ./assignment-2/questionDB
+      dockerfile: questionDb.Dockerfile
+    networks:
+      - some-net
+    ports:
+      - "3002:3002"
+  frontend:
+    build:
+      context: ./assignment-1/frontend-crud
+      dockerfile: frontend.Dockerfile
+    depends_on:
+      - question
+      - user
+      - db
+    ports:
+      - "3000:3000"
+    networks:
+      - some-net
 
 networks:
   some-net:
