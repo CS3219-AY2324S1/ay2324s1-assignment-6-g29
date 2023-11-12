@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  matchingservice:
+    build:
+      context: ./matchingservice
+      dockerfile: matchingService.Dockerfile
+    depends_on:
+      - collabservice
+    networks:
+      - some-net
+    ports:
+      - '4000:4000' 
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: frontend.Dockerfile
+    depends_on:
+      - matchingservice
+    ports:
+     - '3000:3000'  
+    networks:
+      - some-net
+
+networks:
+  some-net:
+    name: peerprep_network
